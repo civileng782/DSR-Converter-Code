@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Converter App</title>
+    <style>
+        body {
+            background-color: #00ff00; /* Green background */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #fff; /* White text */
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        select, input {
+            width: 20%; /* Adjusted width */
+            box-sizing: border-box;
+            margin: 5px auto; /* Centered with margin */
+        }
+
+        p {
+            margin-top: 20px;
+            font-weight: bold; /* Bold result text */
+            text-align: center;
+        }
+
+        .codedBy {
+            margin-top: 20px;
+            color: #fff; /* White text */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1><u>CPWD to PWD CONVERTER</u></h1>
+    
+    <label for="option">Choose an option:</label>
+    <select id="option">
+        <option value="1">DSR Civil</option>
+        <option value="2">DSR E&M</option>
+        <option value="3">PAR</option>
+    </select>
+
+    <label for="districtCostIndex">Enter District Cost Index:</label>
+    <input type="number" id="districtCostIndex">
+
+    <label for="value">Enter CPWD Rates:</label>
+    <input type="number" id="value">
+
+    <p id="result">Result: <span id="liveResult">0</span></p>
+
+    <p class="codedBy">Coded By Er. Satyaveer Singh</p>
+
+    <script>
+        function updateResult() {
+            var option = document.getElementById("option").value;
+            var districtCostIndex = parseFloat(document.getElementById("districtCostIndex").value);
+            var value = parseFloat(document.getElementById("value").value);
+            
+            var staticFactor;
+            if (option == 1) {
+                staticFactor = 0.735/107;
+            } else if (option == 2) {
+                staticFactor = 0.789/110;
+            } else if (option == 3) {
+                staticFactor = 0.735/107;
+            }
+
+            var result = value * staticFactor * districtCostIndex;
+
+            document.getElementById("liveResult").textContent = result;
+        }
+
+        // Update result on input or change
+        document.getElementById("districtCostIndex").addEventListener("input", updateResult);
+        document.getElementById("value").addEventListener("input", updateResult);
+        document.getElementById("option").addEventListener("change", updateResult);
+
+        // Initial update
+        updateResult();
+    </script>
+</body>
+</html>
