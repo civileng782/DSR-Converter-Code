@@ -82,7 +82,7 @@
             }
 
             var result = value * staticFactor * districtCostIndex;
-
+            result = result.toFixed(3); // Round off to three digits
             document.getElementById("liveResult").textContent = result;
         }
 
